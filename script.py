@@ -69,16 +69,32 @@ def find_attractions(destination, interests):
     attractions_in_city = attractions[destination_index]
     # create new list that will store attractions of interest
     attractions_with_interest = []
-    # checks is attra
+    # creates list attraction_tags and loops trough it checking if it matches an interest from interests list
     for attraction in attractions_in_city:
         possible_attraction = attraction
         # extracts tags from attractions_in_city
         attraction_tags = attraction[1]
         # loops through inputted interests and appends possible_attractions to attractions_with_interest
         for interest in interests:
+            # checks for matches between interests and possible attractions
             if interest in attraction_tags:
+                # appends attraction (only attraction name, not tags because it takes index 0 from list)
                 attractions_with_interest.append(possible_attraction[0])
     # returns updated attraction_with_interest list
     return attractions_with_interest
+
+
 la_arts = find_attractions("Los Angeles, USA", ["art"])
 print(la_arts)
+
+def get_attractions_for_traveler(traveler):
+    traveler_destination = traveler[1]
+    traveler_interests = traveler[2]
+    traveler_attractions = find_attractions(traveler_destination, traveler_interests)
+    interests_string = ""
+    interests_string += interests_string.join(traveler_attractions)
+    print("Hi " + traveler[0] + ", we think you'll like these places around " + traveler_destination + ": " +
+          interests_string)
+
+
+get_attractions_for_traveler(['Dereck Smill', 'Paris, France', ['monument']])
