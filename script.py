@@ -48,6 +48,7 @@ def add_attraction(destination, attraction):
 add_attraction("Los Angeles, USA", ['Venice Beach', ['beach']])
 add_attraction("Paris, France", ["the Louvre", ["art", "museum"]])
 add_attraction("Paris, France", ["Arc de Triomphe", ["historical site", "monument"]])
+add_attraction("Paris, France", ["Montmartre", ["historical site"]])
 add_attraction("Shanghai, China", ["Yu Garden", ["garden", ""]])
 add_attraction("Shanghai, China", ["Yuz Museum", ["art", "museum"]])
 add_attraction("Shanghai, China", ["Oriental Pearl Tower", ["skyscraper", "viewing deck"]])
@@ -81,20 +82,38 @@ def find_attractions(destination, interests):
                 # appends attraction (only attraction name, not tags because it takes index 0 from list)
                 attractions_with_interest.append(possible_attraction[0])
     # returns updated attraction_with_interest list
+    if len(attractions_with_interest) == 0:
+        attractions_with_interest.append("""none. You possibly made a spelling error. 
+If not there are no matches in our system""")
     return attractions_with_interest
 
 
 la_arts = find_attractions("Los Angeles, USA", ["art"])
 print(la_arts)
 
+
+# Input is a list of traveler information. Returns travelling advice.
 def get_attractions_for_traveler(traveler):
+    # get destination string
     traveler_destination = traveler[1]
+    # get interest string
     traveler_interests = traveler[2]
+    # get attraction list for traveler
     traveler_attractions = find_attractions(traveler_destination, traveler_interests)
-    interests_string = ""
-    interests_string += interests_string.join(traveler_attractions)
-    print("Hi " + traveler[0] + ", we think you'll like these places around " + traveler_destination + ": " +
-          interests_string)
+    # create the string that will be returned
+    interest_string = "Hi " + traveler[0] + ", we think you'll like these places around " + traveler_destination + ": "
+    # correctly sums the attractions with correct punctuation
+    for i in range(len(traveler_attractions)):
+        if traveler_attractions[-1] == traveler_attractions[i]:
+            if traveler_attractions == ["""none. You possibly made a spelling error. 
+If not there are no matches in our system"""]:
+                interest_string += traveler_attractions[i] + "."
+            else:
+                interest_string += "the " + traveler_attractions[i] + "."
+        else:
+            interest_string += "the " + traveler_attractions[i] + ", "
+    return interest_string
 
 
-get_attractions_for_traveler(['Dereck Smill', 'Paris, France', ['monument']])
+smills_france = get_attractions_for_traveler(['Dereck Smill', 'Paris, France', ['monument', 'historical sit']])
+print(smills_france)
