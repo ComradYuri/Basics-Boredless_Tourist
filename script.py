@@ -77,8 +77,11 @@ def find_attractions(destination, interests):
         attraction_tags = attraction[1]
         # loops through inputted interests and appends possible_attractions to attractions_with_interest
         for interest in interests:
+            # checks if the attraction isn't already in list. Thus removing redundant output
+            if possible_attraction[0] in attractions_with_interest:
+                continue
             # checks for matches between interests and possible attractions
-            if interest in attraction_tags:
+            elif interest in attraction_tags:
                 # appends attraction (only attraction name, not tags because it takes index 0 from list)
                 attractions_with_interest.append(possible_attraction[0])
     # returns updated attraction_with_interest list
@@ -115,5 +118,5 @@ If not there are no matches in our system"""]:
     return interest_string
 
 
-smills_france = get_attractions_for_traveler(['Dereck Smill', 'Paris, France', ['monument', 'historical sit']])
+smills_france = get_attractions_for_traveler(['Dereck Smill', 'Paris, France', ['monument', 'historical site']])
 print(smills_france)
